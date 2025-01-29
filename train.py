@@ -28,7 +28,7 @@ def reward(prompts: list[dict], completions: list[dict], ground_truth: list[str]
     
     rewards = []
     for prompt, completion, truth in zip(prompts, completions, ground_truth):
-        parsed = parse_tags(completion["content"])
+        parsed = parse_tags(completion[0]["content"])
         
         # If tags are malformed, just give it the format reward and continue.
         if not parsed:
