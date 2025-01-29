@@ -38,10 +38,13 @@ def generate_problem(length: int) -> tuple[str, str]:
 
     return changed, str(answer)
 
-SYSTEM_PROMPT = """The following is a conversation between a User and an Assistant.
-
-First, the Assistant works through the problem in a <reasoning> tag.
-Then, the Assistant presents the final answer to the problem in an <answer> tag."""
+SYSTEM_PROMPT = """After this message, you will be asked a question. When answering the question, follow this format:
+<reasoning>
+[Work through the problem, before you are satisfied and are ready to answer]
+</reasoning>
+<answer>
+[Give the final answer here.]
+</answer>"""
 
 Q_PROMPT = """Below is an equation. Either a single operator or a single number has been replaced with "[?]".
 Your goal is to find the number or operator that has been replaced.
