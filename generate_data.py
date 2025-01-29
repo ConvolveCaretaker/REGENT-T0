@@ -47,7 +47,7 @@ SYSTEM_PROMPT = """After this message, you will be asked a question. When answer
 </answer>"""
 
 Q_PROMPT = """
-Reason through this problem, doing your reasoning in a <reasoning> tag and your answer in an <answer> tag.
+Reason through this problem step by step, writing your reasoning in a <reasoning> tag and your answer in an <answer> tag.
 Place each step of your reasoning on a different line.
 
 Below is an equation. Either a single operator or a single number has been replaced with "[?]".
