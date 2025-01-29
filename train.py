@@ -18,7 +18,7 @@ def parse_tags(text: str) -> tuple[str, str] | None:
     else:
         return None
 
-def format_reward(prompts: list[dict], completions: list[dict]) -> float:
+def format_reward(prompts: list[dict], completions: list[dict], ground_truths: list[str]) -> float:
     return [1 if parse_tags(x["content"]) else 0 for x in completions]
 
 def reward(prompts: list[dict], completions: list[dict], ground_truths: list[str]):
