@@ -27,7 +27,7 @@ def reward(prompts: list[dict], completions: list[dict], ground_truth: list[str]
         f.write(json.dumps({"prompts": prompts, "completions": completions}) + "\n")
     
     rewards = []
-    for prompt, completion, truth in zip(prompts, completions, ground_truths):
+    for prompt, completion, truth in zip(prompts, completions, ground_truth):
         parsed = parse_tags(completion["content"])
         
         # If tags are malformed, just give it the format reward and continue.
