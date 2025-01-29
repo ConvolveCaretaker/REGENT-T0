@@ -37,7 +37,7 @@ def reward(prompts: list[str], completions: list[str]):
             rewards.append(0)
             continue
         
-        reasoning, answer = parsed
+        _, answer = parsed
         
         # The longest the answer could be is 2 characters.
         # It's obviously malformed if it's more than that.
