@@ -21,13 +21,13 @@ def parse_tags(text: str) -> tuple[str, str] | None:
 def format_reward(prompts: list[dict], completions: list[dict]) -> float:
     return [1 if parse_tags(x["content"]) else 0 for x in completions]
 
-def reward(prompts: list[str], completions: list[str]):
+def reward(prompts: list[dict], completions: list[dict], ground_truths: list[str]):
     # Log completions
     with open("completions.jsonl", "a") as f:
         f.write(json.dumps({"prompts": prompts, "completions": completions}) + "\n")
     
     rewards = []
-    for prompt, completion in zip(prompts, completions):
+    for prompt, completion, truth in zip(prompts, completions, ground_truths):
         parsed = parse_tags(completion["content"])
         
         # If tags are malformed, just give it the format reward and continue.
@@ -37,22 +37,10 @@ def reward(prompts: list[str], completions: list[str]):
         
         _, answer = parsed
         
-        # The longest the answer could be is 2 characters.
-        # It's obviously malformed if it's more than that.
-        if len(answer) > 2 or len(answer) == 0:
-            rewards.append(0)
-            continue
-        
-        expression, result = re.findall("<equation>(.*) = (.*)</equation>", prompt)
-        
-        try:
-            answer = eval(expression.replace("[?]", answer))
-        except:
-            rewards.append(0)
-            continue
-        
-        if answer == int(result):
+        if answer.strip() == truth:
             rewards.append(1)
+        else:
+            rewards.append(0)
     
     return rewards
 

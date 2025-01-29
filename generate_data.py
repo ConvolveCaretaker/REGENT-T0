@@ -51,7 +51,7 @@ The answer should consist only of the missing operator or number.
 {}"""
 
 def generate_dataset(n: int) -> dict:
-    data = {"prompt": [], "completion": []}
+    data = {"prompt": [], "completion": [], "ground_truth": []}
 
     for _ in range(n):
         question, answer = generate_problem(random.randint(2, 30))
@@ -63,6 +63,7 @@ def generate_dataset(n: int) -> dict:
 
         data["prompt"].append(prompt)
         data["completion"].append([{"role": "assistant", "content": answer}])
+        data["ground_truth"].append(answer)
     
     return data
 
