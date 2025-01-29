@@ -18,10 +18,10 @@ def parse_tags(text: str) -> tuple[str, str] | None:
     else:
         return None
 
-def format_reward(prompts: list[dict], completions: list[dict], ground_truths: list[str]) -> float:
+def format_reward(prompts: list[dict], completions: list[dict], ground_truth: list[str]) -> float:
     return [1 if parse_tags(x["content"]) else 0 for x in completions]
 
-def reward(prompts: list[dict], completions: list[dict], ground_truths: list[str]):
+def reward(prompts: list[dict], completions: list[dict], ground_truth: list[str]):
     # Log completions
     with open("completions.jsonl", "a") as f:
         f.write(json.dumps({"prompts": prompts, "completions": completions}) + "\n")
