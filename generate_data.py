@@ -24,11 +24,11 @@ def generate_problem(length: int) -> tuple[str, str]:
         
         answer = ops[index]
         ops[index] = f"(?)"
-    else:
-        index = random.randint(0, len(numbers)-1)
+    # else:
+    #     index = random.randint(0, len(numbers)-1)
         
-        answer = numbers[index]
-        numbers[index] = f"(?)"
+    #     answer = numbers[index]
+    #     numbers[index] = f"(?)"
     
     changed = str(numbers[0])
     for num, op in zip(numbers[1:], ops):
@@ -48,11 +48,12 @@ SYSTEM_PROMPT = """After this message, you will be asked a question. When answer
 
 Q_PROMPT = """
 Reason through this problem, doing your reasoning in a <reasoning> tag and your answer in an <answer> tag.
+Place each step of your reasoning on a different line.
+
 Below is an equation. Either a single operator or a single number has been replaced with "[?]".
-Your goal is to find the number or operator that has been replaced.
-For problems where a number was replaced, respond with a number from 1 to 199.
+Your goal is to find the operator that has been replaced.
 For problems where an operator was replaced, respond with either *, +, or -.
-The answer should consist only of the missing operator or number.
+The answer should consist only of the missing operator.
 
 {}"""
 
