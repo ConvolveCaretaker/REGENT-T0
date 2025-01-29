@@ -46,7 +46,9 @@ SYSTEM_PROMPT = """After this message, you will be asked a question. When answer
 [Give the final answer here.]
 </answer>"""
 
-Q_PROMPT = """Below is an equation. Either a single operator or a single number has been replaced with "[?]".
+Q_PROMPT = """
+Reason through this problem, doing your reasoning in a <reasoning> tag and your answer in an <answer> tag.
+Below is an equation. Either a single operator or a single number has been replaced with "[?]".
 Your goal is to find the number or operator that has been replaced.
 The possible operators are +, -, and *.
 The answer should consist only of the missing operator or number.
@@ -57,10 +59,10 @@ def generate_dataset(n: int) -> dict:
     data = {"prompt": [], "completion": [], "ground_truth": []}
 
     for _ in range(n):
-        question, answer = generate_problem(random.randint(2, 30))
+        question, answer = generate_problem(random.randint(2, 10))
 
         prompt = [
-                {"role": "system", "content": SYSTEM_PROMPT},
+                # {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": Q_PROMPT.format(question)}
             ]
 
