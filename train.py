@@ -71,8 +71,16 @@ peft_config = LoraConfig(
 model = AutoModelForCausalLM.from_pretrained(
     "Qwen/Qwen2.5-1.5B-Instruct", 
     use_cache=False,
-    generation_config=GenerationConfig(stop_strings=["</assistant>"])
 )
+
+generation_config = GenerationConfig(
+    stop_strings=["</assistant>", "</answer>"],
+    max_new_tokens=1024,
+    pad_token_id=model.config.eos_token_id,
+    eos_token_id=model.config.eos_token_id,
+)
+
+model.generation_config = generation_config
 
 # Enable gradient checkpointing before training
 model.config.use_cache = False  # Ensure this is set in the config
