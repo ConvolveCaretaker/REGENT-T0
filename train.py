@@ -83,7 +83,7 @@ peft_config = LoraConfig(
 )
 
 model = AutoModelForCausalLM.from_pretrained(
-    "Qwen/Qwen2.5-0.5B-Instruct", 
+    "Qwen/Qwen2.5-1.5B-Instruct", 
     use_cache=False,
     generation_config=GenerationConfig(stop_strings=["</assistant>"])
 )
