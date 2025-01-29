@@ -6,5 +6,7 @@ with open("completions.jsonl") as f:
 for completion in completions:
     print("\n#### PROMPT")
     print(completion["prompts"][-1][0]["content"])
+    print("\n#### ANSWER\n")
+    print(completion["ground_truths"][0])
     print("\n#### RESPONSE\n")
     print(completion["completions"][-1][0]["content"])
