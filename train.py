@@ -74,7 +74,7 @@ model = AutoModelForCausalLM.from_pretrained(
 )
 
 generation_config = GenerationConfig(
-    stop_strings=["</assistant>", "</answer>"],
+    stop_strings=["</answer>"],
     max_new_tokens=1024,
     pad_token_id=model.config.eos_token_id,
     eos_token_id=model.config.eos_token_id,
