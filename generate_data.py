@@ -50,7 +50,8 @@ Q_PROMPT = """
 Reason through this problem, doing your reasoning in a <reasoning> tag and your answer in an <answer> tag.
 Below is an equation. Either a single operator or a single number has been replaced with "[?]".
 Your goal is to find the number or operator that has been replaced.
-The possible operators are +, -, and *.
+For problems where a number was replaced, respond with a number from 1 to 199.
+For problems where an operator was replaced, respond with either *, +, or -.
 The answer should consist only of the missing operator or number.
 
 {}"""

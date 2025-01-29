@@ -24,7 +24,7 @@ def format_reward(prompts: list[dict], completions: list[dict], ground_truth: li
 def reward(prompts: list[dict], completions: list[dict], ground_truth: list[str]):
     # Log completions
     with open("completions.jsonl", "a") as f:
-        f.write(json.dumps({"prompts": prompts, "completions": completions}) + "\n")
+        f.write(json.dumps({"prompts": prompts, "completions": completions, "ground_truths": ground_truth}) + "\n")
     
     rewards = []
     for prompt, completion, truth in zip(prompts, completions, ground_truth):
