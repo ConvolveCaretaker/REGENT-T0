@@ -2,12 +2,10 @@ from datasets import Dataset
 from peft import LoraConfig
 from trl import GRPOConfig, GRPOTrainer
 from transformers import AutoModelForCausalLM, AutoTokenizer, TrainerCallback, GenerationConfig
-import torch
 
 from generate_data import generate_dataset
 import re
 import json
-from datetime import datetime
 
 # Load the dataset
 dataset = Dataset.from_dict(generate_dataset(1000))

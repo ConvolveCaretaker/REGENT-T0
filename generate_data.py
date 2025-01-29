@@ -4,8 +4,11 @@ import os
 
 import random
 
-valid_ops = ["+", "-", "*"]
+valid_ops = ["+", "-", "*"]  # we don't use division because that introduces decimals
 
+"""
+Generates a single valid logic puzzle problem.
+"""
 def generate_problem(length: int) -> tuple[str, str]:
     numbers = [random.randrange(1, 99) for _ in range(length)]
     ops = [random.choice(valid_ops) for _ in range(length - 1)]
@@ -50,7 +53,7 @@ The answer should consist only of the missing operator or number.
 def generate_dataset(n: int) -> dict:
     data = {"prompt": [], "completion": []}
 
-    for i in range(n):
+    for _ in range(n):
         question, answer = generate_problem(random.randint(2, 30))
 
         prompt = [
@@ -64,4 +67,5 @@ def generate_dataset(n: int) -> dict:
     return data
 
 if __name__ == "__main__":
-    print(generate_dataset(1000))
+    print("Test code, this file is not used for training.")
+    print(generate_dataset(10))
