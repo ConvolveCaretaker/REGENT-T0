@@ -45,8 +45,8 @@ def reward(prompts: list[dict], completions: list[dict], ground_truth: list[str]
     return rewards
 
 training_args = GRPOConfig(
-    output_dir="outputs/Llama-3.2-3B-GRPO",
-    run_name="Llama-3.2-3B-GRPO",
+    output_dir="outputs/Llama-3.2-1B-GRPO",
+    run_name="Llama-3.2-1B-GRPO",
     learning_rate=1e-5,
     logging_steps=1,
     per_device_train_batch_size=1,
@@ -69,7 +69,7 @@ peft_config = LoraConfig(
 )
 
 model = AutoModelForCausalLM.from_pretrained(
-    "meta-llama/Llama-3.2-3B-GRPO", 
+    "meta-llama/Llama-3.2-1B-GRPO", 
     use_cache=False,
 )
 
