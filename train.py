@@ -97,6 +97,7 @@ trainer = GRPOTrainer(
     reward_funcs=[format_reward, reward],
     args=training_args,
     train_dataset=dataset,
+    # peft disabled for full runs, useful for testing though
     # peft_config=peft_config
 )
 
