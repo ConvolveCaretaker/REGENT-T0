@@ -71,6 +71,7 @@ training_args = GRPOConfig(
     save_steps=100,
     max_grad_norm=0.1,
     log_on_each_node=False,
+    use_vllm=True
 )
 
 peft_config = LoraConfig(
@@ -108,8 +109,7 @@ trainer = GRPOTrainer(
     args=training_args,
     train_dataset=dataset,
     # peft disabled for full runs, useful for testing though
-    peft_config=peft_config,
-    use_vllm=True
+    peft_config=peft_config
 )
 
 trainer.train()
