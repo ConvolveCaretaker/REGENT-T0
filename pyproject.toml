@@ -12,8 +12,7 @@ dependencies = [
     "peft>=0.14.0",
     "python-dotenv>=1.0.1",
     "torch>=2.5.1",
-    "trl>=0.13.0",
-    "flash-attn>=0.2.4"
+    "trl>=0.13.0"
 ]
 
 [tool.uv.sources]

@@ -84,9 +84,7 @@ peft_config = LoraConfig(
 model = AutoModelForCausalLM.from_pretrained(
     model_name,
     torch_dtype=torch.bfloat16,
-    attn_implementation="flash_attention_2",
     device_map=None,
-    use_cache=False
 ).to("cuda")
 
 tokenizer = AutoTokenizer.from_pretrained(model_name)
@@ -110,7 +108,8 @@ trainer = GRPOTrainer(
     args=training_args,
     train_dataset=dataset,
     # peft disabled for full runs, useful for testing though
-    peft_config=peft_config
+    peft_config=peft_config,
+    use_vllm=True
 )
 
 trainer.train()
