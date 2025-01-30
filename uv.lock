@@ -207,6 +207,7 @@ dependencies = [
     { name = "msgpack" },
     { name = "ninja" },
     { name = "numpy" },
+    { name = "nvidia-ml-py" },
     { name = "packaging" },
     { name = "psutil" },
     { name = "py-cpuinfo" },
@@ -215,6 +216,9 @@ dependencies = [
     { name = "tqdm" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/69/c5/9617171e726b11a7a753315906ae0ee8944925c9b6f975f22845c382eda7/deepspeed-0.16.3.tar.gz", hash = "sha256:3877b4d825fc940e3752f4e905f911a45623aa6f9f81b072a0d5deb87a2b785a", size = 1428532 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/55/8f/57ee424e114478a667c604b2f3f05bbc1addc0afc089b9ab6a64b233063d/deepspeed-0.16.3-cp312-cp312-win_amd64.whl", hash = "sha256:8b1016f8d89f1617d9e92c3f03a93dfc32bbfd173aecbb06d209fe6d593ed766", size = 42072463 },
+]
 
 [[package]]
 name = "dill"
@@ -251,6 +255,16 @@ sdist = { url = "https://files.pythonhosted.org/packages/dc/9c/0b15fb47b464e1b66
 wheels = [
     { url = "https://files.pythonhosted.org/packages/89/ec/00d68c4ddfedfe64159999e5f8a98fb8442729a63e2077eb9dcd89623d27/filelock-3.17.0-py3-none-any.whl", hash = "sha256:533dc2f7ba78dc2f0f531fc6c4940addf7b70a481e269a5a3b93be94ffbe8338", size = 16164 },
 ]
+
+[[package]]
+name = "flash-attn"
+version = "2.7.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "einops" },
+    { name = "torch" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/81/f5/59b0727da8c041c0e5eb9feba068e27c88b2cead0e03083c5c6d444d004b/flash_attn-2.7.3.tar.gz", hash = "sha256:9078cf92355c4e3f77f01626ece8c71aad26bdbfa827c2af8c6ac5632cc1cc58", size = 3223463 }
 
 [[package]]
 name = "frozenlist"
@@ -311,22 +325,26 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "deepspeed" },
+    { name = "flash-attn" },
     { name = "numpy" },
     { name = "openai" },
     { name = "pandas" },
     { name = "peft" },
     { name = "python-dotenv" },
+    { name = "torch" },
     { name = "trl" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "deepspeed", specifier = ">=0.16.3" },
+    { name = "flash-attn", specifier = ">=0.2.4" },
     { name = "numpy", specifier = ">=2.2.2" },
     { name = "openai", specifier = ">=1.60.1" },
     { name = "pandas" },
     { name = "peft", specifier = ">=0.14.0" },
     { name = "python-dotenv", specifier = ">=1.0.1" },
+    { name = "torch", specifier = ">=2.5.1" },
     { name = "trl", git = "https://github.com/huggingface/trl.git" },
 ]
 
@@ -771,6 +789,15 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/96/a9/c0d2f83a53d40a4a41be14cea6a0bf9e668ffcf8b004bd65633f433050c0/nvidia_cusparse_cu12-12.3.1.170-py3-none-manylinux2014_aarch64.whl", hash = "sha256:9d32f62896231ebe0480efd8a7f702e143c98cfaa0e8a76df3386c1ba2b54df3", size = 207381987 },
     { url = "https://files.pythonhosted.org/packages/db/f7/97a9ea26ed4bbbfc2d470994b8b4f338ef663be97b8f677519ac195e113d/nvidia_cusparse_cu12-12.3.1.170-py3-none-manylinux2014_x86_64.whl", hash = "sha256:ea4f11a2904e2a8dc4b1833cc1b5181cde564edd0d5cd33e3c168eff2d1863f1", size = 207454763 },
     { url = "https://files.pythonhosted.org/packages/a2/e0/3155ca539760a8118ec94cc279b34293309bcd14011fc724f87f31988843/nvidia_cusparse_cu12-12.3.1.170-py3-none-win_amd64.whl", hash = "sha256:9bc90fb087bc7b4c15641521f31c0371e9a612fc2ba12c338d3ae032e6b6797f", size = 204684315 },
+]
+
+[[package]]
+name = "nvidia-ml-py"
+version = "12.570.86"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/ad/6e/7b0c9b88c7d520fb8639024a1a3b6dd1db03bf2c17ae85040c8758d2eb6f/nvidia_ml_py-12.570.86.tar.gz", hash = "sha256:0508d4a0c7b6d015cf574530b95a62ed4fc89da3b8b47e1aefe6777db170ec8b", size = 43147 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d8/a8/ec37169be4e2b7063b9076ed3fe0661e87335fbca665eed3f48c415cb234/nvidia_ml_py-12.570.86-py3-none-any.whl", hash = "sha256:58907de35a845abd13dcb227f18298f3b5dd94a72d04c9e594e77711e95c0b51", size = 44442 },
 ]
 
 [[package]]

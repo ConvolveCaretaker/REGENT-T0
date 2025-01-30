@@ -19,11 +19,11 @@ def generate_problem(length: int) -> tuple[str, str]:
     
     result = eval(equation)
 
-    if random.randint(0, 1) == 0:
-        index = random.randint(0, len(ops)-1)
-        
-        answer = ops[index]
-        ops[index] = f"(?)"
+    # if random.randint(0, 1) == 0:
+    index = random.randint(0, len(ops)-1)
+    
+    answer = ops[index]
+    ops[index] = f"(?)"
     # else:
     #     index = random.randint(0, len(numbers)-1)
         

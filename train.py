@@ -1,5 +1,6 @@
 from datasets import Dataset
 from peft import LoraConfig
+import torch
 from trl import GRPOConfig, GRPOTrainer
 from transformers import AutoModelForCausalLM, AutoTokenizer, TrainerCallback, GenerationConfig
 
@@ -11,10 +12,12 @@ import json
 dataset = Dataset.from_dict(generate_dataset(1000))
 
 def parse_tags(text: str) -> tuple[str, str] | None:
-    match = re.match("<reasoning>(.*)</reasoning>\n<answer>(.*)</answer>", text.strip())
+    pattern = r"^\s*<reasoning>([\s\S]*?)</reasoning>\s*<answer>([\s\S]*?)</answer>\s*$"
+    match = re.search(pattern, text.strip())
     
     if match:
-        return tuple(match.groups())
+        reasoning, answer = match.groups()
+        return (reasoning.strip(), answer.strip())
     else:
         return None
 
@@ -44,55 +47,70 @@ def reward(prompts: list[dict], completions: list[dict], ground_truth: list[str]
     
     return rewards
 
+model_name = "Qwen/Qwen2.5-1.5B-Instruct"
+output_dir = "output/REGENT-T0-1.5B"
+run_name = "REGENT-T0-1.5B"
+
 training_args = GRPOConfig(
-    output_dir="outputs/Llama-3.2-1B-GRPO",
-    run_name="Llama-3.2-1B-GRPO",
-    learning_rate=1e-5,
+    output_dir=output_dir,
+    run_name=run_name,
+    learning_rate=5e-6,
+    adam_beta1 = 0.9,
+    adam_beta2 = 0.99,
+    weight_decay = 0.1,
+    warmup_ratio = 0.1,
+    lr_scheduler_type="cosine",
     logging_steps=1,
+    bf16=True,
     per_device_train_batch_size=1,
     gradient_accumulation_steps=4,
-    num_generations=8,
-    max_completion_length=8192,
+    num_generations=16,
+    max_prompt_length=256,
+    max_completion_length=786,
+    num_train_epochs=1,
+    save_steps=100,
+    max_grad_norm=0.1,
     log_on_each_node=False,
-    beta=0.05,
-    bf16_full_eval=True,
-    bf16=True,
-    temperature=0.9,  # Added for generation diversity
 )
 
 peft_config = LoraConfig(
     r=16,
     lora_alpha=64,
-    target_modules=["q_proj", "k_proj", "v_proj"],
+    target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "up_proj", "down_proj", "gate_proj"],
     task_type="CAUSAL_LM",
     lora_dropout=0.05,
 )
 
 model = AutoModelForCausalLM.from_pretrained(
-    "meta-llama/Llama-3.2-1B-GRPO", 
-    use_cache=False,
-)
+    model_name,
+    torch_dtype=torch.bfloat16,
+    attn_implementation="flash_attention_2",
+    device_map=None,
+    use_cache=False
+).to("cuda")
+
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+tokenizer.pad_token = tokenizer.eos_token if isinstance(tokenizer.eos_token, str) else tokenizer.eos_token[0]
 
 generation_config = GenerationConfig(
     stop_strings=["</answer>"],
-    max_new_tokens=1024,
-    pad_token_id=model.config.eos_token_id,
-    eos_token_id=model.config.eos_token_id,
+    max_new_tokens=1024
 )
 
 model.generation_config = generation_config
 
-# Enable gradient checkpointing before training
-model.config.use_cache = False  # Ensure this is set in the config
-model.gradient_checkpointing_enable()
+# # Enable gradient checkpointing before training
+# model.config.use_cache = False  # Ensure this is set in the config
+# model.gradient_checkpointing_enable()
 
 trainer = GRPOTrainer(
     model=model,
+    processing_class=tokenizer,
     reward_funcs=[format_reward, reward],
     args=training_args,
     train_dataset=dataset,
     # peft disabled for full runs, useful for testing though
-    # peft_config=peft_config
+    peft_config=peft_config
 )
 
 trainer.train()
