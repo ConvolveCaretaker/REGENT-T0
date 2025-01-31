@@ -72,7 +72,8 @@ training_args = GRPOConfig(
     max_grad_norm=0.1,
     log_on_each_node=False,
     use_vllm=True,
-    vllm_device="cuda:7"
+    vllm_device="cuda:7",
+    vllm_gpu_memory_utilization=0.7
 )
 
 peft_config = LoraConfig(
