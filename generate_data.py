@@ -10,7 +10,7 @@ valid_ops = ["+", "-", "*"]  # we don't use division because that introduces dec
 Generates a single valid logic puzzle problem.
 """
 def generate_problem(length: int) -> tuple[str, str]:
-    numbers = [random.randrange(1, 99) for _ in range(length)]
+    numbers = [random.randrange(1, 9) for _ in range(length)]
     ops = [random.choice(valid_ops) for _ in range(length - 1)]
 
     equation = str(numbers[0])
@@ -61,7 +61,7 @@ def generate_dataset(n: int) -> dict:
     data = {"prompt": [], "completion": [], "ground_truth": []}
 
     for _ in range(n):
-        question, answer = generate_problem(random.randint(2, 10))
+        question, answer = generate_problem(random.randint(2, 5))
 
         prompt = [
                 # {"role": "system", "content": SYSTEM_PROMPT},

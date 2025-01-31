@@ -9,7 +9,7 @@ import re
 import json
 
 # Load the dataset
-dataset = Dataset.from_dict(generate_dataset(1000))
+dataset = Dataset.from_dict(generate_dataset(5000))
 
 def parse_tags(text: str) -> tuple[str, str] | None:
     pattern = r"^\s*<reasoning>([\s\S]*?)</reasoning>\s*<answer>([\s\S]*?)</answer>\s*$"
