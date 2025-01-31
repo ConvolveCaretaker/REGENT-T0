@@ -103,7 +103,7 @@ model.generation_config = generation_config
 
 # # Enable gradient checkpointing before training
 # model.config.use_cache = False  # Ensure this is set in the config
-# model.gradient_checkpointing_enable()
+model.gradient_checkpointing_enable()
 
 trainer = GRPOTrainer(
     model=model,
