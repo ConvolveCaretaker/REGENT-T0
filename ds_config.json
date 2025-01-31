@@ -22,7 +22,7 @@
     "gradient_accumulation_steps": 4,
     "gradient_clipping": 0.1,
     "scheduler": {
-        "type": "WarmupDecayLR",
+        "type": "WarmupCosineLR",
         "params": {
             "warmup_min_lr": 0,
             "warmup_max_lr": 5e-6,
