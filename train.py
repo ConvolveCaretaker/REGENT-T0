@@ -88,7 +88,6 @@ peft_config = LoraConfig(
 model = AutoModelForCausalLM.from_pretrained(
     model_name,
     torch_dtype=torch.bfloat16,
-    device_map="auto",
     use_cache=False
 ).to("cuda")
 
