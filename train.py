@@ -112,7 +112,7 @@ trainer = GRPOTrainer(
     args=training_args,
     train_dataset=dataset,
     # peft disabled for full runs, useful for testing though
-    peft_config=peft_config
+    # peft_config=peft_config
 )
 
 trainer.train()
