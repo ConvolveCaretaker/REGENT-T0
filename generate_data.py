@@ -61,7 +61,7 @@ def generate_dataset(n: int) -> dict:
     data = {"prompt": [], "completion": [], "ground_truth": []}
 
     for _ in range(n):
-        question, answer = generate_problem(random.randint(2, 5))
+        question, answer = generate_problem(random.randint(2, 15))
 
         prompt = [
                 # {"role": "system", "content": SYSTEM_PROMPT},

@@ -64,7 +64,7 @@ training_args = GRPOConfig(
     bf16=True,
     per_device_train_batch_size=1,
     gradient_accumulation_steps=4,
-    num_generations=16,
+    num_generations=32,
     max_prompt_length=256,
     max_completion_length=786,
     num_train_epochs=1,
@@ -73,7 +73,8 @@ training_args = GRPOConfig(
     log_on_each_node=False,
     use_vllm=True,
     vllm_device="cuda:7",
-    vllm_gpu_memory_utilization=0.7
+    vllm_gpu_memory_utilization=0.7,
+    deepspeed="ds_config.json",
 )
 
 peft_config = LoraConfig(
@@ -87,7 +88,7 @@ peft_config = LoraConfig(
 model = AutoModelForCausalLM.from_pretrained(
     model_name,
     torch_dtype=torch.bfloat16,
-    device_map=None,
+    device_map="auto",
     use_cache=False
 ).to("cuda")
 
