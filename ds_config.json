@@ -22,13 +22,7 @@
     "gradient_accumulation_steps": 4,
     "gradient_clipping": 0.1,
     "scheduler": {
-        "type": "WarmupCosineLR",
-        "params": {
-            "warmup_min_lr": 0,
-            "warmup_max_lr": 5e-6,
-            "warmup_num_steps": 100,
-            "total_num_steps": "auto"
-        }
+        "type": "WarmupCosineLR"
     },
     "optimizer": {
         "type": "AdamW",
